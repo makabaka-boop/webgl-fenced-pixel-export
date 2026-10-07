@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebGL2 像素样张</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="page-header">
+      <h1>WebGL2 像素样张</h1>
+      <p>最大 64×64 的 RGBA 整数网格；导出时冻结修订、尺寸、像素和文件名。</p>
+    </header>
+
+    <div class="workspace">
+      <section class="panel" aria-labelledby="editor-title">
+        <h2 id="editor-title">编辑</h2>
+
+        <form id="dimensions-form" class="control-group">
+          <label>
+            宽度
+            <input id="width-input" type="number" min="1" max="64" value="8" required>
+          </label>
+          <label>
+            高度
+            <input id="height-input" type="number" min="1" max="64" value="8" required>
+          </label>
+          <button type="submit">调整尺寸</button>
+        </form>
+
+        <div class="control-group">
+          <label class="color-picker-row">
+            颜色
+            <input id="color-input" type="color" value="#2557c9">
+          </label>
+          <div class="rgba-inputs">
+            <label>R<input id="r-input" type="number" min="0" max="255" value="37"></label>
+            <label>G<input id="g-input" type="number" min="0" max="255" value="87"></label>
+            <label>B<input id="b-input" type="number" min="0" max="255" value="201"></label>
+            <label>A<input id="a-input" type="number" min="0" max="255" value="255"></label>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="fill-button" type="button">填充</button>
+          <button id="clear-button" type="button">透明清空</button>
+        </div>
+
+        <button id="export-button" class="export-button" type="button">导出当前修订为 PNG</button>
+        <p class="hint">在画布上按下或拖动即可绘制像素。导出读回最多两份同时在途，额外任务会排队。</p>
+      </section>
+
+      <section class="panel preview-panel" aria-labelledby="preview-title">
+        <h2 id="preview-title">预览</h2>
+        <div class="canvas-wrap">
+          <canvas id="grid-canvas" width="8" height="8" aria-label="RGBA 像素网格预览"></canvas>
+        </div>
+        <dl class="state-line">
+          <dt>修订：</dt><dd id="revision-value">1</dd>
+          <dt>尺寸：</dt><dd id="size-value">8×8</dd>
+          <dt>读回：</dt><dd id="inflight-value">0/2</dd>
+        </dl>
+      </section>
+    </div>
+
+    <section class="panel tasks-panel" aria-labelledby="tasks-title">
+      <h2 id="tasks-title">导出任务</h2>
+      <p id="renderer-status" role="status">WebGL2 初始化中。</p>
+      <ul id="task-list" class="task-list"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

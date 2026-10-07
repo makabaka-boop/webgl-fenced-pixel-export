@@ -1,0 +1,16 @@
+{
+  "name": "webgl2-pixel-sheet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WebGL2 pixel grid with queued PBO readback and immutable PNG exports",
+  "scripts": {
+    "start": "node tools/static-server.js public 8080",
+    "test": "npm run check:forbidden && playwright test",
+    "test:install-browser": "playwright install chromium",
+    "check:forbidden": "node tools/forbidden-check.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0",
+    "pngjs": "^7.0.0"
+  }
+}
